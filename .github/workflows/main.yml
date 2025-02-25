@@ -39,7 +39,8 @@ jobs:
           cat metrics.txt >> report.md
           echo "Model Performance" >> report.md
           echo "Model performance metrics are shown in the plot below." >> report.md
-          echo "Publishing Results..."
           for i in {0..9}; do
-            cml comment --publish --md --inline "model_results_$i.png"
+            echo "![inline](model_results_$i.png)" >> report.md
           done
+          echo "Publishing Results..."
+          cml comment create report.md
