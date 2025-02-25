@@ -40,5 +40,6 @@ jobs:
           echo "Model Performance" >> report.md
           echo "Model performance metrics are shown in the plot below." >> report.md
           echo "Publishing Results..."
-          cml-publish model_results.png --md >> report.md
-          cml-send-comment report.md
+          for i in {0..9}; do
+            cml comment --publish --md --inline "model_results_$i.png"
+          done
