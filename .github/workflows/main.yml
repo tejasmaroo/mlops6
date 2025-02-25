@@ -33,7 +33,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Running ML model..."
-          python3 expno5.py
+          python3 model.py
           echo "Generating Report..."
           echo "Model Metrics" > report.md
           cat metrics.txt >> report.md
