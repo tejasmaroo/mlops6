@@ -15,11 +15,10 @@ jobs:
           sudo apt update
           echo "Installing Python and Pip..."
           sudo apt install -y python3 python3-pip
-          echo "Ensuring 'python' command points to Python 3..."
-          ln -sf /usr/bin/python3 /usr/bin/python || true
+          echo "Ensuring 'python3' is used directly..."
           echo "Upgrading pip and installing required packages..."
-          pip install --upgrade pip
-          pip install -r requirements.txt
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt
       
       - name: Setup Node.js & Install CML
         run: |
@@ -34,7 +33,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           echo "Running ML model..."
-          python expno5.py
+          python3 expno5.py
           echo "Generating Report..."
           echo "Model Metrics" > report.md
           cat metrics.txt >> report.md
