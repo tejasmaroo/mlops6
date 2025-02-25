@@ -11,13 +11,16 @@ lr = LinearRegression()
 if not os.path.exists("metrics.txt"):
     open("metrics.txt", "w").close()
 
-for _ in range(10):  # Ensure colon `:` is present
-    rng = np.random.RandomState(_)  # Correctly indented inside loop
+# Set a fixed random seed for reproducibility
+fixed_seed = 42
+
+for i in range(10):  # Ensure colon `:` is present
+    rng = np.random.RandomState(fixed_seed + i)  # Correctly indented inside loop
     
     x = 10 * rng.rand(1000).reshape(-1, 1)
     y = 2 * x - 5 + rng.randn(1000).reshape(-1, 1)
 
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=50)
+    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=fixed_seed)
 
     lr.fit(X_train, y_train)
     y_preds = lr.predict(X_test)
@@ -39,9 +42,9 @@ for _ in range(10):  # Ensure colon `:` is present
 
     plt.xlabel('X')
     plt.ylabel('y')
-    plt.title(f'Training and Testing Data Split - Iteration {_}')
+    plt.title(f'Training and Testing Data Split - Iteration {i}')
     plt.legend()
     plt.grid(True)
 
-    plt.savefig(f'model_results_{_}.png', dpi=120)
+    plt.savefig(f'model_results_{i}.png', dpi=120)
     plt.close()  # Prevents overlapping plots
